@@ -1,0 +1,25 @@
+<div id="message_<%= message.id %>" class="flex <%= message.role == 'user' ? 'justify-end' : 'justify-start' %>">
+  <div class="max-w-[80%]">
+    <% if message.role == 'assistant' %>
+      <div class="flex items-center gap-2 mb-1">
+        <span class="text-lg">👨‍🍳</span>
+        <span class="text-sm font-semibold text-amber-700">Sous Chef</span>
+      </div>
+      <div class="bg-white border border-gray-200 text-gray-900 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+        <div id="message_<%= message.id %>_content" class="prose prose-sm max-w-none">
+          <%= simple_format(message.content || "") %>
+        </div>
+        <% if message.tool_call? %>
+          <%= render "messages/tool_calls", message: message %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="flex items-center gap-2 mb-1 justify-end">
+        <span class="text-sm font-semibold text-gray-500">You</span>
+      </div>
+      <div class="bg-amber-600 text-white rounded-2xl rounded-tr-sm px-4 py-3">
+        <p id="message_<%= message.id %>_content"><%= message.content %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

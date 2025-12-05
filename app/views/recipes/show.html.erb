@@ -1,0 +1,23 @@
+<div>
+  <h1 class="font-bold text-4xl"><%= @recipe.title %></h1>
+
+  <div class="mt-8">
+    <h2 class="text-2xl font-bold">Ingredients</h2>
+    <div class="mt-4 prose">
+      <%= @recipe.ingredients %>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <h2 class="text-2xl font-bold">Instructions</h2>
+    <div class="mt-4 prose">
+      <%= @recipe.instructions %>
+    </div>
+  </div>
+
+  <% if @recipe.source_url.present? %>
+    <div class="mt-8">
+      <p>Source: <%= link_to @recipe.source_url, @recipe.source_url, target: "_blank" %></p>
+    </div>
+  <% end %>
+</div>

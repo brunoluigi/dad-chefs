@@ -1,0 +1,11 @@
+<p>Hello <%= @resource.email %>!</p>
+
+<p>You can login using the link below:</p>
+
+<% magic_url = magic_link_url(@resource, @scope_name => {email: @resource.email, token: @token, remember_me: @remember_me}) %>
+<p><a href="<%= raw magic_url %>">Log in to my account</a></p>
+
+<p>Or copy and paste this URL into your browser:</p>
+<p style="word-break: break-all;"><code><%= raw magic_url %></code></p>
+
+<p>Note that the link will expire in <%= Devise.passwordless_login_within.inspect %>.</p>

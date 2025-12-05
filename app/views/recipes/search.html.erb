@@ -1,0 +1,29 @@
+<div>
+  <h1 class="font-bold text-4xl">Search for a Recipe</h1>
+
+  <%= form_with url: search_recipes_path, method: :get, local: true do |form| %>
+    <div class="my-4">
+      <%= form.label :q, "What do you want to cook?", class: "block text-lg font-medium text-gray-700" %>
+      <%= form.text_field :q, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+    </div>
+
+    <%= form.submit "Search", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+  <% end %>
+
+  <% if @recipes.present? %>
+    <div class="mt-8">
+      <h2 class="text-2xl font-bold">Results</h2>
+      <ul class="mt-4 space-y-2">
+        <% @recipes.each do |recipe| %>
+          <li class="p-4 border rounded-md">
+            <%= recipe.title %>
+            <%= form_with url: save_recipes_path, method: :post, local: true do |form| %>
+              <%= form.hidden_field :title, value: recipe.title %>
+              <%= form.submit "Save", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

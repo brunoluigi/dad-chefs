@@ -1,0 +1,49 @@
+<div class="min-h-[60vh] flex items-center justify-center">
+  <div class="text-center max-w-2xl mx-auto px-4">
+    <div class="mb-8">
+      <span class="text-6xl">👨‍🍳</span>
+    </div>
+    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl mb-6">
+      Welcome to <span class="text-amber-600">DadChefs</span>
+    </h1>
+    <p class="text-xl leading-8 text-gray-600 mb-10">
+      Your AI-powered cooking companion. Get personalized recipe suggestions, cooking tips, and meal ideas tailored just for you.
+    </p>
+    
+    <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4">Get started with magic link</h2>
+      <p class="text-sm text-gray-500 mb-6">No password needed. We'll send you a secure login link.</p>
+      
+      <%= form_with(scope: :user, url: user_session_path, local: true, class: "space-y-4") do |form| %>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <%= form.email_field :email, 
+              placeholder: "Enter your email", 
+              class: "flex-1 rounded-lg border-gray-300 shadow-sm focus:border-amber-500 focus:ring focus:ring-amber-200 focus:ring-opacity-50 px-4 py-3 text-lg",
+              required: true,
+              autofocus: true %>
+          <%= form.submit "Send magic link ✨", 
+              class: "rounded-lg bg-amber-600 px-6 py-3 text-lg font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 transition-colors cursor-pointer whitespace-nowrap" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+      <div class="bg-gray-50 rounded-xl p-6">
+        <div class="text-2xl mb-3">🍳</div>
+        <h3 class="font-semibold text-gray-900 mb-2">Recipe Ideas</h3>
+        <p class="text-sm text-gray-600">Get personalized recipe suggestions based on ingredients you have.</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-6">
+        <div class="text-2xl mb-3">💬</div>
+        <h3 class="font-semibold text-gray-900 mb-2">AI Chef Assistant</h3>
+        <p class="text-sm text-gray-600">Chat with our AI to get cooking tips and step-by-step guidance.</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-6">
+        <div class="text-2xl mb-3">📚</div>
+        <h3 class="font-semibold text-gray-900 mb-2">Save Favorites</h3>
+        <p class="text-sm text-gray-600">Build your personal cookbook with recipes you love.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
