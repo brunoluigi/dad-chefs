@@ -1,3 +1,4 @@
+<% show_error ||= false %>
 <div id="message_<%= message.id %>" class="flex <%= message.role == 'user' ? 'justify-end' : 'justify-start' %>">
   <div class="max-w-[80%]">
     <% if message.role == 'assistant' %>
@@ -5,14 +6,21 @@
         <span class="text-lg">👨‍🍳</span>
         <span class="text-sm font-semibold text-amber-700">Sous Chef</span>
       </div>
-      <div class="bg-white border border-gray-200 text-gray-900 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
-        <div id="message_<%= message.id %>_content" class="prose prose-sm max-w-none">
-          <%= simple_format(message.content || "") %>
+
+      <% if show_error %>
+        <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+          <p class="text-yellow-800"><%= message.content %></p>
         </div>
-        <% if message.tool_call? %>
-          <%= render "messages/tool_calls", message: message %>
-        <% end %>
-      </div>
+      <% else %>
+        <div class="bg-white border border-gray-200 text-gray-900 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+          <div id="message_<%= message.id %>_content" class="prose prose-sm max-w-none prose-headings:text-gray-900 prose-a:text-amber-600 prose-strong:text-gray-900 prose-code:text-amber-700 prose-code:bg-amber-50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-gray-100">
+            <%= markdown(message.content || "") %>
+          </div>
+          <% if message.tool_call? %>
+            <%= render "messages/tool_calls", message: message %>
+          <% end %>
+        </div>
+      <% end %>
     <% else %>
       <div class="flex items-center gap-2 mb-1 justify-end">
         <span class="text-sm font-semibold text-gray-500">You</span>

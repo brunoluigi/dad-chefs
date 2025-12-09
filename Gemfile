@@ -65,9 +65,15 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  # Code coverage analysis
+  gem "simplecov", require: false
 end
 gem "ruby_llm"
 gem "devise"
 gem "devise-passwordless"
+
+# Markdown rendering
+gem "redcarpet"
+gem "rouge"
 
 gem "letter_opener_web", "~> 3.0", group: :development

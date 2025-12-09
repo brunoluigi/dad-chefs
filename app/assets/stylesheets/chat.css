@@ -1,0 +1,91 @@
+/* Chat-specific styles for markdown content */
+
+/* Code blocks */
+.prose pre {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.prose pre code {
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Inline code */
+.prose code {
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+/* Lists in recipes */
+.prose ul, .prose ol {
+  margin: 0.75rem 0;
+}
+
+.prose li {
+  margin: 0.25rem 0;
+}
+
+/* Tables for nutritional info or ingredient lists */
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.prose th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.prose td {
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+/* Blockquotes for tips or notes */
+.prose blockquote {
+  border-left: 4px solid #f59e0b;
+  background-color: #fffbeb;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+}
+
+/* Headings in recipe steps */
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.prose h1 { font-size: 1.5rem; }
+.prose h2 { font-size: 1.25rem; }
+.prose h3 { font-size: 1.125rem; }
+.prose h4 { font-size: 1rem; }
+
+/* Horizontal rules for recipe sections */
+.prose hr {
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+  margin: 1.5rem 0;
+}
+
+/* Links */
+.prose a {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  text-decoration-style: solid;
+}

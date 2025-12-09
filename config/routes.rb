@@ -17,10 +17,10 @@ Rails.application.routes.draw do
       post :save
     end
   end
-  devise_for :users, controllers: { sessions: "users/sessions" }, skip: [:registrations]
+  devise_for :users, controllers: { sessions: "users/magic_links" }, skip: [:registrations]
   devise_scope :user do
-    get "users/sign_up", to: "users/registrations#new", as: :new_user_registration
-    post "users", to: "users/registrations#create", as: :user_registration
+    # Redirect old sign up path to unified auth
+    get "users/sign_up", to: redirect("/users/sign_in")
   end
   root "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

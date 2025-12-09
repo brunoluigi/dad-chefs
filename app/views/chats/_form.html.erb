@@ -1,4 +1,4 @@
-<%= form_with(model: chat, url: chats_path) do |form| %>
+<%= form_with(model: chat, url: chats_path, data: { controller: "chat-form" }) do |form| %>
   <% if chat.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(chat.errors.count, "error") %> prohibited this chat from being saved:</h2>
@@ -20,7 +20,11 @@
   </div>
 
   <div style="margin-top: 15px;">
-    <%= form.text_field :prompt, style: "width: 100%; max-width: 600px;", placeholder: "What would you like to discuss?", autofocus: true %>
+    <%= form.text_field :prompt,
+        style: "width: 100%; max-width: 600px;",
+        placeholder: "What would you like to discuss? (Shift+Enter to send)",
+        autofocus: true,
+        data: { chat_form_target: "input", action: "keydown->chat-form#handleKeydown" } %>
   </div>
 
   <div>
