@@ -1,6 +1,10 @@
 class Message < ApplicationRecord
   acts_as_message tool_calls_foreign_key: :message_id
-  broadcasts_to ->(message) { "chat_#{message.chat_id}" }
+
+  scope :visible, -> { where.not(role: "system") }
+
+  # Only broadcast visible messages (exclude system messages)
+  after_create_commit :broadcast_if_visible
 
   def broadcast_append_chunk(content)
     broadcast_append_to "chat_#{chat_id}",
@@ -11,5 +15,17 @@ class Message < ApplicationRecord
 
   def guardrail_error?
     role == "assistant" && content&.include?("I'm specialized in helping parents find healthy")
+  end
+
+  private
+
+  def broadcast_if_visible
+    # Only broadcast if this is not a system message
+    return if role == "system"
+
+    broadcast_append_to "chat_#{chat_id}",
+      target: "messages",
+      partial: "messages/message",
+      locals: { message: self }
   end
 end

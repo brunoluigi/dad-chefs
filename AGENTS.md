@@ -2,6 +2,34 @@
 
 This file summarizes the steps taken by the AI agent to develop the DadChefs application.
 
+---
+
+## 🤖 Agent Guidelines: Pre-Commit Checklist
+
+**IMPORTANT:** Before committing any code changes, ALL coding agents MUST run the following commands and ensure they all pass:
+
+1. **Run Tests:**
+   ```bash
+   bin/rake
+   ```
+   ✓ All tests must pass with no failures or errors.
+
+2. **Run Linter:**
+   ```bash
+   bin/rubocop
+   ```
+   ✓ No RuboCop offenses should be present. Fix any style violations before committing.
+
+3. **Run Security Scanner:**
+   ```bash
+   bin/brakeman
+   ```
+   ✓ No security vulnerabilities should be detected. Address any security concerns before committing.
+
+**If any of these commands fail, DO NOT commit the code.** Fix the issues first, then re-run all three commands to verify everything passes.
+
+---
+
 1.  **Environment Setup:**
     *   Installed the Rails gem.
 

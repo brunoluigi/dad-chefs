@@ -19,14 +19,14 @@
   <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
     <!-- Messages container -->
     <div id="messages" class="h-[60vh] overflow-y-auto p-6 space-y-4" data-controller="messages-scroll">
-      <% if @chat.messages.empty? %>
+      <% if @chat.messages.visible.empty? %>
         <div class="text-center text-gray-400 py-20">
           <div class="text-4xl mb-4">👨‍🍳</div>
           <p class="font-medium text-gray-600">Your Sous Chef is ready!</p>
           <p class="mt-1">Ask me about recipes, cooking tips, or meal ideas.</p>
         </div>
       <% else %>
-        <% @chat.messages.where.not(id: nil).each do |message| %>
+        <% @chat.messages.visible.each do |message| %>
           <%= render "chats/message", message: message %>
         <% end %>
       <% end %>
