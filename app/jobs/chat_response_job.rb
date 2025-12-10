@@ -1,20 +1,9 @@
 class ChatResponseJob < ApplicationJob
   def perform(chat_id, content)
     chat = Chat.find(chat_id)
-    accumulated_content = ""
 
-    # Stream normally, but accumulate content to check for guardrail
-    chat.ask(content) do |chunk|
-      if chunk.content && !chunk.content.blank?
-        accumulated_content += chunk.content
-        message = chat.messages.last
-
-        # Don't broadcast if we detect NOT_COOKING_RELATED
-        unless accumulated_content.upcase.include?("NOT_COOKING_RELATED")
-          message.broadcast_append_chunk(chunk.content)
-        end
-      end
-    end
+    # Don't stream during the ask - let it complete first
+    chat.ask(content)
 
     # Post-stream processing
     assistant_message = chat.messages.where(role: "assistant").order(created_at: :desc).first
@@ -23,7 +12,7 @@ class ChatResponseJob < ApplicationJob
       if assistant_message.content.to_s.strip.upcase.start_with?("NOT_COOKING_RELATED")
         handle_not_cooking_related(assistant_message)
       else
-        # Replace raw streamed content with properly formatted markdown
+        # Broadcast the complete formatted message
         broadcast_formatted_message(assistant_message)
       end
     end
