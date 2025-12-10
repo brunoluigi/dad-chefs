@@ -29,4 +29,19 @@ module ApplicationHelper
 
     markdown.render(text).html_safe
   end
+
+  def sanitize_url(url)
+    return "#" if url.blank?
+
+    uri = URI.parse(url)
+
+    # Only allow http and https protocols
+    if uri.scheme.nil? || %w[http https].include?(uri.scheme.downcase)
+      url
+    else
+      "#"
+    end
+  rescue URI::InvalidURIError
+    "#"
+  end
 end
