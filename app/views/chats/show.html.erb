@@ -18,7 +18,7 @@
 
   <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
     <!-- Messages container -->
-    <div id="messages" class="h-[60vh] overflow-y-auto p-6 space-y-4">
+    <div id="messages" class="h-[60vh] overflow-y-auto p-6 space-y-4" data-controller="messages-scroll">
       <% if @chat.messages.empty? %>
         <div class="text-center text-gray-400 py-20">
           <div class="text-4xl mb-4">👨‍🍳</div>
@@ -34,13 +34,15 @@
 
     <!-- Message input -->
     <div class="border-t border-gray-100 p-4 bg-gray-50">
-      <%= form_with(model: @message, url: chat_messages_path(@chat), id: "new_message", class: "flex gap-3") do |form| %>
-        <%= form.text_field :content, 
-            class: "flex-1 rounded-lg border-gray-300 shadow-sm focus:border-amber-500 focus:ring focus:ring-amber-200 focus:ring-opacity-50 px-4 py-3",
-            placeholder: "Ask your Sous Chef anything...",
+      <%= form_with(model: @message, url: chat_messages_path(@chat), id: "new_message", class: "flex gap-3 items-end", data: { controller: "chat-form" }) do |form| %>
+        <%= form.text_area :content,
+            class: "flex-1 rounded-lg border-gray-300 shadow-sm focus:border-amber-500 focus:ring focus:ring-amber-200 focus:ring-opacity-50 px-4 py-3 resize-none",
+            rows: 2,
+            placeholder: "Ask your Sous Chef anything... (Enter for new line, Shift+Enter to send)",
             autofocus: true,
-            autocomplete: "off" %>
-        <%= form.submit "Send", 
+            autocomplete: "off",
+            data: { chat_form_target: "input", action: "keydown->chat-form#handleKeydown" } %>
+        <%= form.submit "Send",
             class: "rounded-lg bg-amber-600 px-6 py-3 font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 transition-colors cursor-pointer" %>
       <% end %>
     </div>

@@ -87,8 +87,9 @@ test:
 production:
   primary: &primary_production
     <<: *default
+    host: <%= ENV["DB_HOST"] %>
     database: dad_chefs_production
-    username: dad_chefs
+    username: postgres
     password: <%= ENV["DAD_CHEFS_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production

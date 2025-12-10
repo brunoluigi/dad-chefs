@@ -10,6 +10,12 @@
     <%= form.submit "Search", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
   <% end %>
 
+  <% if @error_message.present? %>
+    <div class="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+      <p class="text-yellow-800"><%= @error_message %></p>
+    </div>
+  <% end %>
+
   <% if @recipes.present? %>
     <div class="mt-8">
       <h2 class="text-2xl font-bold">Results</h2>

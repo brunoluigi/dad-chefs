@@ -17,7 +17,7 @@
 
   <% if @recipe.source_url.present? %>
     <div class="mt-8">
-      <p>Source: <%= link_to @recipe.source_url, @recipe.source_url, target: "_blank" %></p>
+      <p>Source: <%= link_to @recipe.source_url, sanitize_url(@recipe.source_url), target: "_blank", rel: "noopener noreferrer" %></p>
     </div>
   <% end %>
 </div>

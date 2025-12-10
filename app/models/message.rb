@@ -8,4 +8,8 @@ class Message < ApplicationRecord
       partial: "messages/content",
       locals: { content: content }
   end
+
+  def guardrail_error?
+    role == "assistant" && content&.include?("I'm specialized in helping parents find healthy")
+  end
 end
