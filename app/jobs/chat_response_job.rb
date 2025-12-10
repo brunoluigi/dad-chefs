@@ -2,10 +2,15 @@ class ChatResponseJob < ApplicationJob
   def perform(chat_id, content)
     chat = Chat.find(chat_id)
 
-    # Don't stream during the ask - let it complete first
-    chat.ask(content)
+    # Stream normally
+    chat.ask(content) do |chunk|
+      if chunk.content && !chunk.content.blank?
+        message = chat.messages.last
+        message.broadcast_append_chunk(chunk.content)
+      end
+    end
 
-    # Broadcast the complete formatted message
+    # Post-stream processing
     assistant_message = chat.messages.where(role: "assistant").order(created_at: :desc).first
     if assistant_message
       # Check for legacy "NOT_COOKING_RELATED" responses (safety fallback)
@@ -14,7 +19,7 @@ class ChatResponseJob < ApplicationJob
         assistant_message.update!(content: Chat::GUARDRAIL_ERROR_MESSAGE)
       end
 
-      # Broadcast with markdown formatting
+      # Replace raw streamed content with properly formatted markdown
       assistant_message.broadcast_replace_to "chat_#{assistant_message.chat_id}",
         target: "message_#{assistant_message.id}",
         partial: "messages/message",
