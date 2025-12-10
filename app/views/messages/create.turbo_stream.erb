@@ -1,5 +1,5 @@
 <%= turbo_stream.append "messages" do %>
-  <% @chat.messages.last(2).each do |message| %>
+  <% @chat.messages.visible.last(2).each do |message| %>
     <%= render message %>
   <% end %>
 <% end %>

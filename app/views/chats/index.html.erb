@@ -22,18 +22,18 @@
               <div class="flex items-center gap-2 mb-2">
                 <span class="text-lg">💬</span>
                 <p class="font-medium text-gray-900 truncate">
-                  <%= chat.messages.where(role: 'user').first&.content&.truncate(60) || "New conversation" %>
+                  <%= chat.messages.visible.where(role: 'user').first&.content&.truncate(60) || "New conversation" %>
                 </p>
               </div>
-              <% if chat.messages.where(role: 'assistant').any? %>
+              <% if chat.messages.visible.where(role: 'assistant').any? %>
                 <p class="text-sm text-gray-500 truncate pl-7">
-                  👨‍🍳 <%= chat.messages.where(role: 'assistant').first&.content&.truncate(80) %>
+                  👨‍🍳 <%= chat.messages.visible.where(role: 'assistant').first&.content&.truncate(80) %>
                 </p>
               <% end %>
             </div>
             <div class="flex flex-col items-end ml-4">
               <span class="text-xs text-gray-400"><%= time_ago_in_words(chat.created_at) %> ago</span>
-              <span class="text-xs text-gray-400 mt-1"><%= chat.messages.count %> messages</span>
+              <span class="text-xs text-gray-400 mt-1"><%= chat.messages.visible.count %> messages</span>
             </div>
           </div>
         <% end %>
