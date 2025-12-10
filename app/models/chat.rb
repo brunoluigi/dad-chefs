@@ -32,7 +32,7 @@ class Chat < ApplicationRecord
       - Food storage and safety (e.g., "how long does cooked rice last")
       - ANY dish name from ANY cuisine (Spanish, Italian, Chinese, Mexican, etc.)
 
-      NOT cooking-related queries (respond with "NOT_COOKING_RELATED" ONLY for these):
+      NOT cooking-related queries include:
       - General knowledge questions unrelated to food (e.g., "what is the capital of France")
       - Technology questions (e.g., "how to fix my computer")
       - Medical advice not related to food (e.g., "what medicine should I take")
@@ -40,9 +40,9 @@ class Chat < ApplicationRecord
       - Current events and news (e.g., "who won the game yesterday")
 
       If the user's query is clearly NOT about food, cooking, recipes, meals, or ingredients, respond with EXACTLY this text and nothing else:
-      "NOT_COOKING_RELATED"
+      "#{GUARDRAIL_ERROR_MESSAGE}"
 
-      IMPORTANT: Recipe names in other languages (like "cocido madrileño", "coq au vin", "pad thai") are ALWAYS cooking-related. Respond with the recipe, not "NOT_COOKING_RELATED".
+      IMPORTANT: Recipe names in other languages (like "cocido madrileño", "coq au vin", "pad thai") are ALWAYS cooking-related. Respond with the recipe, not the guardrail message.
     PROMPT
 
     with_instructions(instructions)
