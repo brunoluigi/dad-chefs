@@ -1,12 +1,18 @@
 class ChatResponseJob < ApplicationJob
   def perform(chat_id, content)
     chat = Chat.find(chat_id)
+    accumulated_content = ""
 
-    # Stream normally
+    # Stream normally, but accumulate content to check for guardrail
     chat.ask(content) do |chunk|
       if chunk.content && !chunk.content.blank?
+        accumulated_content += chunk.content
         message = chat.messages.last
-        message.broadcast_append_chunk(chunk.content)
+
+        # Don't broadcast if we detect NOT_COOKING_RELATED
+        unless accumulated_content.upcase.include?("NOT_COOKING_RELATED")
+          message.broadcast_append_chunk(chunk.content)
+        end
       end
     end
 
