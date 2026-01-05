@@ -74,6 +74,6 @@ gem "devise-passwordless", "~> 1.1"
 
 # Markdown rendering
 gem "redcarpet", "~> 3.6"
-gem "rouge", "~> 4.6"
+gem "rouge", "~> 4.7"
 
 gem "letter_opener_web", "~> 3.0", group: :development
