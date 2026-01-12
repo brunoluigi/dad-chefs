@@ -7,12 +7,12 @@
       <p class="text-gray-500 text-sm">Your AI-powered kitchen companion</p>
     </div>
     <% if @chat %>
-      <%= link_to "New Chat", root_path(new_chat: true), class: "text-amber-600 hover:text-amber-700 font-medium text-sm" %>
+      <%= link_to "New Chat", root_path, class: "text-amber-600 hover:text-amber-700 font-medium text-sm" %>
     <% end %>
   </div>
 
   <% if @chat %>
-    <%= turbo_stream_from "chat_#{@chat.id}" %>
+    <%= turbo_stream_from dom_id(@chat) %>
     
     <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
       <!-- Messages container -->

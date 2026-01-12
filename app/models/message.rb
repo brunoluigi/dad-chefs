@@ -7,8 +7,8 @@ class Message < ApplicationRecord
   after_create_commit :broadcast_if_visible
 
   def broadcast_append_chunk(content)
-    broadcast_append_to "chat_#{chat_id}",
-      target: "message_#{id}_content",
+    broadcast_append_to dom_id(chat),
+      target: "#{dom_id(self)}_content",
       partial: "messages/content",
       locals: { content: content }
   end
@@ -19,7 +19,7 @@ class Message < ApplicationRecord
     # Only broadcast if this is not a system message
     return if role == "system"
 
-    broadcast_append_to "chat_#{chat_id}",
+    broadcast_append_to dom_id(chat),
       target: "messages",
       partial: "messages/message",
       locals: { message: self }

@@ -17,7 +17,7 @@ class ChatsController < ApplicationController
     @chat = current_user.chats.create!(model: model)
     ChatResponseJob.perform_later(@chat.id, prompt)
 
-    redirect_to root_path(chat_id: @chat.id), notice: "Chat started!"
+    redirect_to chat_path(@chat)
   end
 
   def show

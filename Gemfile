@@ -77,3 +77,6 @@ gem "redcarpet", "~> 3.6"
 gem "rouge", "~> 4.6"
 
 gem "letter_opener_web", "~> 3.0", group: :development
+
+# Had to force this version because the version in the gemfile.lock had a vulnerability
+gem "action_text-trix", "~> 2.1.16"
