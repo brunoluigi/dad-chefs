@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to root_path(chat_id: @chat.id) }
+      format.html { redirect_to chat_path(@chat) }
     end
   end
 

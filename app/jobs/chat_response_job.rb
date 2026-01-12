@@ -11,10 +11,10 @@ class ChatResponseJob < ApplicationJob
     end
 
     # Post-stream processing: replace raw streamed content with properly formatted markdown
-    assistant_message = chat.messages.where(role: "assistant").order(created_at: :desc).first
+    assistant_message = chat.messages.where(role: "assistant").last
     if assistant_message
-      assistant_message.broadcast_replace_to "chat_#{assistant_message.chat_id}",
-        target: "message_#{assistant_message.id}",
+      assistant_message.broadcast_replace_to dom_id(chat),
+        target: dom_id(assistant_message),
         partial: "messages/message",
         locals: { message: assistant_message, show_error: false }
     end
