@@ -23,15 +23,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_05_160213) do
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
-  create_table "cookbooks", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "recipe_id", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["recipe_id"], name: "index_cookbooks_on_recipe_id"
-    t.index ["user_id"], name: "index_cookbooks_on_user_id"
-  end
-
   create_table "messages", force: :cascade do |t|
     t.integer "cache_creation_tokens"
     t.integer "cached_tokens"
@@ -75,11 +66,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_05_160213) do
 
   create_table "recipes", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.text "ingredients"
-    t.text "instructions"
+    t.string "description"
+    t.jsonb "ingredients"
+    t.jsonb "instructions"
     t.string "source_url"
     t.string "title"
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
   create_table "tool_calls", force: :cascade do |t|
@@ -109,10 +103,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_05_160213) do
 
   add_foreign_key "chats", "models"
   add_foreign_key "chats", "users"
-  add_foreign_key "cookbooks", "recipes"
-  add_foreign_key "cookbooks", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "models"
   add_foreign_key "messages", "tool_calls"
+  add_foreign_key "recipes", "users"
   add_foreign_key "tool_calls", "messages"
 end

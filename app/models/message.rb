@@ -1,7 +1,9 @@
 class Message < ApplicationRecord
+  VISIBLE_ROLES = [ "assistant", "user" ]
+
   acts_as_message tool_calls_foreign_key: :message_id
 
-  scope :visible, -> { where.not(role: "system") }
+  scope :visible, -> { where(role: VISIBLE_ROLES).where.not(content: nil) }
 
   # Only broadcast visible messages (exclude system messages)
   after_create_commit :broadcast_if_visible
@@ -17,7 +19,7 @@ class Message < ApplicationRecord
 
   def broadcast_if_visible
     # Only broadcast if this is not a system message
-    return if role == "system"
+    return unless role.in?(VISIBLE_ROLES)
 
     broadcast_append_to dom_id(chat),
       target: "messages",

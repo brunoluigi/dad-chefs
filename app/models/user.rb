@@ -5,8 +5,7 @@ class User < ApplicationRecord
   # which conflict with magic-link-only authentication
   devise :magic_link_authenticatable, :registerable, :rememberable
 
-  has_many :cookbooks
-  has_many :recipes, through: :cookbooks
+  has_many :recipes
   has_many :chats, dependent: :destroy
 
   # Custom email validation since we removed :validatable
