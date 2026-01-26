@@ -69,7 +69,7 @@ group :test do
   gem "simplecov", "~> 0.22", require: false
 end
 gem "ruby_llm", "~> 1.9"
-gem "devise", "~> 4.9"
+gem "devise", "~> 5.0"
 gem "devise-passwordless", "~> 1.1"
 
 # Markdown rendering
