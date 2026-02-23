@@ -68,7 +68,7 @@ group :test do
   # Code coverage analysis
   gem "simplecov", "~> 0.22", require: false
 end
-gem "ruby_llm", "~> 1.9"
+gem "ruby_llm", "~> 1.12"
 gem "devise", "~> 4.9"
 gem "devise-passwordless", "~> 1.1"
 
